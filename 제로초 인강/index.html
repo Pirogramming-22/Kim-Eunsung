@@ -93,56 +93,67 @@
         #header {
             text-align: left;
             position: relative;
-            height: 64px;
+            height: 52px;
         }
-        #header-hamburger, #header-notice, #header-naverpay { 
+        #header-hamburger, #header-notice, #header-naverpay, #header-shopping, #header-navertalk { 
             position: absolute;
-            top: 18px;
-            padding: 10px;
+            top: 5px;
+            padding: 8px;
             display: inline-block;
             background: none;
             border: none;
             cursor: pointer;
         }
-        #header-hamburger:hover::before, #header-notice:hover::before, #header-naverpay:hover::before {
+        #header-hamburger:hover::before, #header-notice:hover::before, #header-naverpay:hover::before, #header-shopping:hover::before, #header-navertalk:hover::before {
             position: absolute;
             content: '';
             z-index: 0;
-            left: 1px;
-            top: 1px;
-            width: 44px;
-            height: 44px;
+            left: 0px;
+            top: 0px;
+            width: 48px;
+            height: 48px;
             background-color: var(--color_option_bg);
             border-radius: 50%;
         }
-        #header-hamburger > div, #header-notice > div, #header-naverpay > div {
+        #header-hamburger > div, #header-notice > div, #header-naverpay > div, #header-shopping > div, #header-navertalk > div {
             background-image: url(./sp_main.png);
-            width: 26px;
-            height: 26px;
+            width: 32px;
+            height: 32px;
             position: relative;
             z-index: 1;
             background-repeat: no-repeat;
             background-size: 463px 440px;
         }
         #header-hamburger {
-            left: -10px;
+            left: -12px;
         }
         #header-hamburger > div {
             background-position: -311px -166px;
         }
         #header-naverpay {
-            right: 42px;
-            padding: 10px 8px;
+            left: 41px;
+            padding: 8px;
         }
         #header-naverpay > div {
-            width: 30px;
-            background-position: -33px -316px;
+            background-position: -248px -260px;
+        }
+        #header-navertalk {
+            right: 94px;
+        }
+        #header-navertalk > div {
+            background-position: -99px -316px;
         }
         #header-notice {
-            right: -10px;
+            right: 42px;
         }
         #header-notice > div {
             background-position: -311px -232px;
+        }
+        #header-shopping{
+            right: -10;
+        }
+        #header-shopping > div {
+            background-position: -33px -316px;
         }
         #main {
             height: 2000px;
@@ -173,17 +184,29 @@
                     <span class="blind">네이버 페이</span>
                     <!-- ::after -->
                 </button>
+                <button id="header-navertalk">
+                    <!-- ::before -->
+                    <div></div>
+                    <span class="blind">네이버톡</span>
+                    <!-- ::after -->
+                </button>
                 <button id="header-notice">
                     <!-- ::before -->
                     <div></div>
                     <span class="blind">알림</span>
                     <!-- ::after -->
                 </button>
+                <button id="header-shopping">
+                    <!-- ::before -->
+                    <div></div>
+                    <span class="blind">쇼핑</span>
+                    <!-- ::after -->
+                </button>
             </div>
             <style>
                 #search > form {
                     display: inline-flex;
-                    width: 708px;
+                    width: 706px;
                     height: 60px;
                     border: 1px solid #03c75a;
                     border-radius: 33px;
@@ -383,14 +406,8 @@
                 #nav li:nth-of-type(7) a div::after {
                     background-position: 0px -260px;
                 }
-                #nav li:nth-of-type(8) a div::before {
-                    left: 0;
-                }
                 #nav li:nth-of-type(8) a div::after {
                     background-position: -270px 0px;
-                    width: 48px;
-                    height: 48px;
-                    top: -2;
                 }
                 #nav li:nth-of-type(9) a div::after {
                     background-position: -164px -260px;
@@ -401,9 +418,6 @@
                 #nav li a span {
                     display: inline-block;
                     margin-top: 7px;
-                }
-                #nav li:nth-of-type(8) a span {
-                    margin-top: 3px;
                 }
             </style>
             <div id="nav">

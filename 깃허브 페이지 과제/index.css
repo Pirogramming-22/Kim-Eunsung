@@ -1,0 +1,66 @@
+html {
+    height: 0;
+}
+button {
+    background: none;
+    border: none;
+}
+button:hover {
+    cursor: pointer;
+}
+
+#nav {
+    display: flex;
+    margin-top: 20px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#nav-left {
+    display: flex;
+    align-items: center;
+}
+#nav-left-logo {
+    display: inline-block;
+    line-height: 32px;
+    text-align: center;
+}
+#nav-left-logo > svg {
+    vertical-align: middle;
+}
+#nav-left-navs {
+    display: inline-block;
+}
+#nav-left-navs button {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 3px;
+}
+#nav-right {
+    display: flex;
+    align-items: center;
+}
+#nav-right-search {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+#nav-right-search-input {
+    width: 200px;
+    height: 24px;
+}
+#nav-right-search > svg {
+    position: absolute;
+    right: 2px;
+}
+#nav-right-search-input:hover, #nav-right-search > svg:hover {
+    cursor: pointer;
+}
+#nav-right-btn-sign-in, #nav-right-btn-sign-up {
+    margin-left: 3px;
+    height: 30px;
+}
+#nav-right-btn-sign-up {
+    border: 1px solid black;
+    border-radius: 3px;
+}

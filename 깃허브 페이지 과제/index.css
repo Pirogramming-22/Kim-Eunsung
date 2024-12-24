@@ -1,5 +1,7 @@
 html {
+    width: 100%;
     height: 100%;
+    
 }
 button {
     background: none;
@@ -11,12 +13,14 @@ button:hover {
 
 body {
     height: 100%;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
 #topside {
     flex: 1;
+    background-color: #2d3136;
 }
 
 #nav {
@@ -37,6 +41,7 @@ body {
 }
 #nav-left-logo > svg {
     vertical-align: middle;
+    fill: white;
 }
 #nav-left-navs {
     display: inline-block;
@@ -45,7 +50,13 @@ body {
     display: inline-flex;
     align-items: center;
     margin-left: 3px;
+    color: white;
 }
+#nav-left-navs button > svg {
+    fill: white;
+}
+
+
 #nav-right {
     display: flex;
     align-items: center;
@@ -56,23 +67,34 @@ body {
     align-items: center;
 }
 #nav-right-search-input {
-    width: 200px;
-    height: 24px;
+    width: 220px;
+    height: 30px;
+    background-color: #ffffff2e;
+    border: none;
+    border-radius: 3px;
 }
 #nav-right-search > svg {
     position: absolute;
     right: 2px;
+}
+#nav-right-search-input::placeholder {
+    position: absolute;
+    left: 5px;
+    color: #bebebe;
+    font-weight: 500;
 }
 #nav-right-search-input:hover, #nav-right-search > svg:hover {
     cursor: pointer;
 }
 #nav-right-btn-sign-in, #nav-right-btn-sign-up {
     margin-left: 3px;
+    width: 70px;
     height: 30px;
+    color: white;
 }
 #nav-right-btn-sign-up {
-    border: 1px solid black;
-    border-radius: 3px;
+    border: 1px solid white;
+    border-radius: 5px;
 }
 
 #main {

@@ -64,3 +64,92 @@ button:hover {
     border: 1px solid black;
     border-radius: 3px;
 }
+
+#main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 10px;
+}
+
+#main-left {
+    position: relative;
+    right: 40px;
+}
+#main-left h1 {
+    margin: 0;
+    font-size: 4rem;
+    line-height: 4rem;
+}
+#main-left p {
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+}
+#main-left p > span {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#main-right {
+    width: 360px;
+    position: relative;
+    left: 40px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+#main-right > form {
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#main-right > form .label-and-input {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    margin-top: 12px;
+}
+#main-right > form label {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+#main-right > form input {
+    height: 35px;
+    margin-top: 4px;
+    border: 1px solid gray;
+    border-radius: 3px;
+}
+#main-right > form input::placeholder {
+    color: transparent;
+}
+#main-right > form input:not(:placeholder-shown) {
+    background-color: skyblue;
+}
+#main-right p {
+    margin-top: 15px;
+    font-size: 0.68rem;
+}
+#main-right a {
+    font-size: 0.68rem;
+    color: blue;
+    text-decoration: none;
+}
+#main-right a:hover {
+    text-decoration: underline;
+}
+#main-right > form button {
+    width: inherit;
+    height: 55px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+}
+#main-right-privacy-notice {
+    color: gray;
+    margin-top: 30px;   
+}

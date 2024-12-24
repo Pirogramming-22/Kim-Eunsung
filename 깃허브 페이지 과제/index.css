@@ -25,7 +25,7 @@ body {
 
 #nav {
     display: flex;
-    margin-top: 20px;
+    margin: 20px 0px;
     justify-content: space-around;
     align-items: center;
 }
@@ -69,9 +69,11 @@ body {
 #nav-right-search-input {
     width: 220px;
     height: 30px;
-    background-color: #ffffff2e;
+    background-color: #ffffff2e;    
+    color: white;
+    padding-left: 5px;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 #nav-right-search > svg {
     position: absolute;
@@ -79,7 +81,6 @@ body {
 }
 #nav-right-search-input::placeholder {
     position: absolute;
-    left: 5px;
     color: #bebebe;
     font-weight: 500;
 }
@@ -102,7 +103,6 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
-    margin-top: 10px;
 }
 
 #main-left {
@@ -113,23 +113,29 @@ body {
     margin: 0;
     font-size: 4rem;
     line-height: 4rem;
+    color: white;
 }
 #main-left p {
     font-size: 1.2rem;
     line-height: 1.5rem;
+    color: #bebebe;
 }
 #main-left p > span {
-    font-weight: bold;
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-color: #bebebe;
+    text-decoration-thickness: 0.5px;
+    color: white;
 }
 
 #main-right {
     width: 360px;
+    height: 430px;
     position: relative;
     left: 40px;
-    border: 1px solid black;
+    border: none;
     border-radius: 5px;
     padding: 10px 20px;
+    background-color: white;
 }
 #main-right > form {
     width: inherit;
@@ -142,26 +148,28 @@ body {
     display: flex;
     flex-direction: column;
     width: inherit;
-    margin-top: 12px;
+    margin-top: 15px;
 }
 #main-right > form label {
     font-size: 0.8rem;
     font-weight: bold;
 }
 #main-right > form input {
-    height: 35px;
-    margin-top: 4px;
-    border: 1px solid gray;
+    height: 40px;
+    margin-top: 5px;
+    border: .5px solid rgb(234 237 242);
     border-radius: 3px;
+    padding: 0 8px;
 }
 #main-right > form input::placeholder {
     color: transparent;
 }
 #main-right > form input:not(:placeholder-shown) {
-    background-color: skyblue;
+    background-color: #ebf0fd;
 }
 #main-right p {
     margin-top: 15px;
+    margin-bottom: 15px;
     font-size: 0.68rem;
 }
 #main-right a {
@@ -174,10 +182,10 @@ body {
 }
 #main-right > form button {
     width: inherit;
-    height: 55px;
-    border: 1px solid black;
+    height: 60px;
+    border: none;
     border-radius: 5px;
-    background-color: green;
+    background-color: #6ab95d;
     color: white;
     font-weight: bold;
 }

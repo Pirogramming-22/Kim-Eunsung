@@ -1,3 +1,5 @@
+import { startTimer, stopTimer, resetTimer } from './timer.js';
+
 const updateDisplay = () => {
     const timeDisplay = document.getElementById("display-time");
 
@@ -74,7 +76,8 @@ const deleteRecord = () => {
             item.remove();
         }
     }
-    
+
+    const checkAll = document.getElementById("check-all");
     checkAll.checked = false;
 }
 
@@ -83,6 +86,10 @@ function setButtonClickEvents() {
     const stopBtn = document.getElementById("btn-stop");
     const resetBtn = document.getElementById("btn-reset");
     const deleteBtn = document.getElementById("btn-delete");
+
+    startBtn.removeEventListener("click", startTimer);
+    stopBtn.removeEventListener("click", stopTimer);
+    resetBtn.removeEventListener("click", resetTimer);
 
     startBtn.addEventListener("click", startStopWatch);
     stopBtn.addEventListener("click", stopStopWatch);
@@ -107,21 +114,4 @@ function setCheckBoxEvent(checkbox) {
     }) 
 }
 
-
-
-// Main
-setButtonClickEvents();
-const checkAll = document.getElementById("check-all")
-checkAll.addEventListener("change", () => {
-    if (checkAll.checked) {
-        const allCheckbox = document.getElementsByClassName("checkbox-individual");
-        for (let i = 0; i < allCheckbox.length; i++) {
-            allCheckbox[i].checked = true;
-        }
-    } else {
-        const allCheckbox = document.getElementsByClassName("checkbox-individual");
-        for (let i = 0; i < allCheckbox.length; i++) {
-            allCheckbox[i].checked = false;
-        }
-    }
-})
+export { setButtonClickEvents, startStopWatch, stopStopWatch, resetStopWatch };

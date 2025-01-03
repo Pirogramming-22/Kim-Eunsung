@@ -90,6 +90,7 @@ h2 {
     font-family: var(--main-font);
     font-size: 20px;
     box-shadow: 7px 7px 7px rgb(0, 0, 0, .1);
+    cursor: pointer;
 }
 
 .record {
@@ -128,6 +129,7 @@ h2 {
 .records {
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 .record-item {
     display: flex;

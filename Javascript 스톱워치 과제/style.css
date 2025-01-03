@@ -1,0 +1,232 @@
+:root {
+    --main-font: "Nexon", -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+                    "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR",
+                    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+                    sans-serif;
+
+    --main-color: #b8bfb7;
+
+    --record-right-elem-size: 30px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 30px;
+}
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    font-family: var(--main-font);
+}
+
+.main {
+    width: 75dvw;
+    height: 100dvh;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.header > svg {
+    width: 25px;
+    height: 25px;
+}
+.header > h1 {
+    font-weight: bold;
+    font-family: var(--main-font);
+}
+
+.options {
+    width: calc(40% - 80px);
+    height: 4%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+.options > button {
+    flex: 1;
+    height: 50%;
+    transform: translateY(100%);
+    border-radius: 10px 10px 0 0;
+    border: none;
+    outline: none;
+    background-color: var(--main-color);
+    cursor: pointer;
+}
+.options > .option-selected {
+    height: 100%;
+    transform: translateY(0);
+}
+
+.stopwatch {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--main-color);
+    padding: 20px;
+    width: 40%;
+    height: 35%;
+    border-radius: 40px;
+    box-shadow: 7px 7px 7px rgb(0, 0, 0, .3);
+}
+.stopwatch-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 90%;
+    height: 40%;
+    font-family: var(--main-font);
+    font-weight: 600;
+    font-size: 4rem;
+    border-radius: 25px;
+}
+.stopwatch-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 28%;
+}
+.stopwatch-buttons > button {
+    height: 100%;
+    width: 70px;
+    border-radius: 40%;
+    border: none;
+    font-family: var(--main-font);
+    font-size: 20px;
+    box-shadow: 7px 7px 7px rgb(0, 0, 0, .1);
+    cursor: pointer;
+}
+
+.record {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    height: 40%;
+    margin-top: 50px;
+}
+.record-header {
+    display: flex;
+    background-color: var(--main-color);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 25px 25px 0 0;
+}
+.record-header > button {
+    width: var(--record-right-elem-size);
+    height: var(--record-right-elem-size);
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+.record-header > button > svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--record-right-elem-size);
+    height: var(--record-right-elem-size);
+}
+
+.records {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+.record-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+.record-item > h2 {
+    line-height: 36px;
+}
+.record-item > div{
+    width: var(--record-right-elem-size);
+    height: var(--record-right-elem-size);
+}
+
+/* Checkbox 관련 */
+.checkbox-circle {
+    border-radius: 50%;
+    border: 2px solid black;
+    width: 30px;
+    height: 30px;
+    appearance: none;
+}
+.checkbox-circle:checked {
+    background-image: url(./check.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/* timer 관련 */
+.timer-setting {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--main-color);
+    width: 45%;
+    height: 40%;
+    margin-top: 50px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 25px;
+    gap: 20px;
+}
+.timer-setting-inputs {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+}
+.timer-setting-inputs > input::-webkit-outer-spin-button,
+.timer-setting-inputs > input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.timer-setting-inputs > input {
+    height: 80%;
+    width: 60%;
+    text-align: center;
+    font-size: 80px;
+    -moz-appearance: textfield;
+    background-color: transparent;
+    border: 1px solid black;
+}
+.timer-setting-inputs > button {
+    height: 80%;
+    width: 30%;
+    border-radius: 5px;
+    border: none;
+    font-family: var(--main-font);
+    font-size: 20px;
+    box-shadow: 7px 7px 7px rgb(0, 0, 0, .1);
+    cursor: pointer;
+}
+
+
+.no-display {
+    display: none;
+}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스톱워치 과제 - 김은성</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="main">
+        <header class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stopwatch-fill" viewBox="0 0 16 16">
+                <path d="M6.5 0a.5.5 0 0 0 0 1H7v1.07A7.001 7.001 0 0 0 8 16a7 7 0 0 0 5.29-11.584l.013-.012.354-.354.353.354a.5.5 0 1 0 .707-.707l-1.414-1.415a.5.5 0 1 0-.707.707l.354.354-.354.354-.012.012A6.97 6.97 0 0 0 9 2.071V1h.5a.5.5 0 0 0 0-1zm2 5.6V9a.5.5 0 0 1-.5.5H4.5a.5.5 0 0 1 0-1h3V5.6a.5.5 0 1 1 1 0"/>
+            </svg>
+            <h1 id="title">피로그래밍 스톱워치</h1>
+        </header>
+        <section class="options">
+            <button id="btn-mode-stopwatch" class="option-selected">스톱워치</button>
+            <button id="btn-mode-timer">타이머</button>
+        </section>
+        <section class="stopwatch">
+            <div class="stopwatch-display">
+                <p id="display-time">00:00</p>
+            </div>
+            <div class="stopwatch-buttons">
+                <button id="btn-start">start</button>
+                <button id="btn-stop">stop</button>
+                <button id="btn-reset">reset</button>
+            </div>
+        </section>
+        <section class="record">
+            <div class="record-header">
+                <input id="check-all" class="checkbox-circle" type="checkbox">
+                <h2>구간 기록</h2>
+                <button id="btn-delete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528M8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="records">
+                <!-- 구간 기록 요소들 동적으로 추가 -->
+            </div>
+        </section>
+        <section class="timer-setting no-display">
+            <h2>타이머 설정 (초)</h2>
+            <div class="timer-setting-inputs">
+                <input id="timer-set-input" class="timer-set-input" type="number" maxlength="2">
+                <button id="btn-timer-set">set</button>
+            </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="stopwatch.js"></script>
+    <script type="module" src="modeController.js"></script>
+    <script type="module" src="timer.js"></script>
+</body>
+</html>

@@ -14,6 +14,11 @@
         <a href={% url "review:review_create" %}>add a New review</a>
     </header>
     <div class="divider"></div>
+    <div class="order_selector">
+        <a href="{% url "review:review_list" %}?order=title" {% if order == "title" %}class="selected"{% endif %}>제목순</a>
+        <a href="{% url "review:review_list" %}?order=rating" {% if order == "rating" %}class="selected"{% endif %}>별점낮은순</a>
+        <a href="{% url "review:review_list" %}?order=runningTime" {% if order == "runningTime" %}class="selected"{% endif %}>러닝타임순</a>
+    </div>
     <main>
         {% for review in reviews %}
         <a class="summary-item" href={% url "review:review_detail" review.pk %}>
@@ -24,7 +29,7 @@
             </p>
             <p class="summary-movie_category">
                 <span class="summary-about">장르</span>
-                <span class="summary-data">{{review.category}}</span>             
+                <span class="summary-data">{{review.get_category_display}}</span>             
             </p>
             <p class="summary-movie_rating">
                 <span class="summary-about">별점</span>

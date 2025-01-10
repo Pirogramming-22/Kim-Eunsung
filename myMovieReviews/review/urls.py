@@ -9,6 +9,7 @@ urlpatterns = [
     path('create', review_create, name='review_create'),
 
     # 리스트
+    path('', review_list, name='review_list'),
     path('list', review_list, name='review_list'),
 
     # 디테일

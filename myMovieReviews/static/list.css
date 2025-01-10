@@ -27,3 +27,18 @@ main {
 .highlight {
     color: var(--color-highlight);
 }
+.order_selector {
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+    padding-inline: 30px;
+    width: 100dvw;
+    margin-top: 20px;
+}
+.order_selector > a {
+    color: gray;
+}
+a.selected {
+    color: black;
+    font-weight: bold;
+}

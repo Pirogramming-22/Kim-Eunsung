@@ -20,16 +20,30 @@ def review_create(request):
     return render(request, 'review/create.html')
 
 def review_list(request):
+    try:
+        order = request.GET['order']
+    except:
+        order = "title"
+        
     reviews = Review.objects.all()
+    if order == "title":
+        reviews = Review.objects.all().order_by('title')
+    elif order == "rating":
+        reviews = Review.objects.all().order_by('rating')
+    elif order == "runningTime":
+        reviews = Review.objects.all().order_by('runningTime')
+    
     context = {
-        'reviews': reviews
+        'reviews': reviews,
+        'order': order
     }
     return render(request, 'review/list.html', context)
 
 def review_detail(request, pk):
     review = Review.objects.get(id=pk)
     context = {
-        'review': review
+        'review': review,
+        'runningTime': f"{int(review.runningTime) // 60}시간 {int(review.runningTime) % 60}분"
     }
     return render(request, 'review/detail.html', context)
 

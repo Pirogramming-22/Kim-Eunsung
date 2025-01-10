@@ -36,9 +36,12 @@
             <label for="category">장르:</label>
             <select id="category" name="category" required>
                 <option value="" disabled {% if not review.category %}selected{% endif %}>--------</option>
-                <option value="comedy" {% if review.category == "comedy" %}selected{% endif %}>Comedy</option>
+                <option value="코미디" {% if review.category == "코미디" %}selected{% endif %}>코미디</option>
                 <option value="SF" {% if review.category == "SF" %}selected{% endif %}>SF</option>
-                <option value="action" {% if review.category == "action" %}selected{% endif %}>Action</option>
+                <option value="액션" {% if review.category == "액션" %}selected{% endif %}>액션</option>
+                <option value="공포" {% if review.category == "공포" %}selected{% endif %}>공포</option>
+                <option value="다큐멘터리" {% if review.category == "다큐멘터리" %}selected{% endif %}>다큐멘터리</option>
+                <option value="로맨스" {% if review.category == "로맨스" %}selected{% endif %}>로맨스</option>
             </select>
             <br>
             </div>
@@ -50,8 +53,8 @@
             </div>
     
             <div class='form-input-element'>
-            <label for="runningTime">러닝타임:</label>
-            <input type="text" id="runningTime" name="runningTime" value="{{review.runningTime}}" required>
+                <label for="runningTime">러닝타임 (분):</label>
+                <input type="number" id="runningTime" name="runningTime" value="{{review.runningTime}}" required>
             <br>
             </div>
     

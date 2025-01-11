@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 영화 기록 사이트 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'detail.css' %}">
+</head>
+<body>
+    <header>
+        <a href={% url "review:review_list" %}>my <span class="highlight">Movie</span> reviews</a>
+        <a href={% url "review:review_create" %}>add a New review</a>
+    </header>
+    <div class="divider"></div>
+    <main>
+        <div class="main-header">
+            <div class="main-header-left">
+                <h2>{{review.title}}</h2>
+            </div>
+            <div class="main-header-right">
+                <a href="{% url "review:review_update" review.pk %}">수정</a>
+                <form action="{% url "review:review_delete" review.pk %}" method='post'>
+                    {% csrf_token %}
+                    <button type="submit">삭제</button>
+                </form>
+            </div>
+        </div>
+        <div class="main-movie_info">
+            <div class="main-movie_info-image">
+            </div>
+            <div class="main-movie_info-info">
+                <div class="summary-movie_year">
+                    <span class="summary-about">개봉년도</span>
+                    <span class="summary-data">{{review.year}}</span>
+                </div>
+                <div class="summary-movie_director">
+                    <span class="summary-about">감독</span>
+                    <span class="summary-data">{{review.director}}</span>
+                </div>
+                <div class="summary-movie_actor">
+                    <span class="summary-about">주연</span>
+                    <span class="summary-data">{{review.actor}}</span>
+                </div>
+                <div class="summary-movie_category">
+                    <span class="summary-about">장르</span>
+                    <span class="summary-data">{{review.category}}</span>             
+                </div>
+                <div class="summary-movie_rating">
+                    <span class="summary-about">별점</span>
+                    <span class="summary-data">{{review.rating}}</span>
+                </div>
+                <div class="summary-movie_runningTime">
+                    <span class="summary-about">러닝타임</span>
+                    <span class="summary-data">{{runningTime}}</span>
+                </div>
+            </div>
+        </div><div class="main-movie_review">
+            <p>{{review.review}}</p>
+        </div>
+    </main>
+</body>
+</html>

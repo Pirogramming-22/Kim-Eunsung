@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 영화 기록 사이트 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'list.css' %}">
+</head>
+<body>
+    <header>
+        <a href={% url "review:review_list" %}>my <span class="highlight">Movie</span> reviews</a>
+        <a href={% url "review:review_create" %}>add a New review</a>
+    </header>
+    <div class="divider"></div>
+    <div class="order_selector">
+        <a href="{% url "review:review_list" %}?order=title" {% if order == "title" %}class="selected"{% endif %}>제목순</a>
+        <a href="{% url "review:review_list" %}?order=rating" {% if order == "rating" %}class="selected"{% endif %}>별점낮은순</a>
+        <a href="{% url "review:review_list" %}?order=runningTime" {% if order == "runningTime" %}class="selected"{% endif %}>러닝타임순</a>
+    </div>
+    <main>
+        {% for review in reviews %}
+        <a class="summary-item" href={% url "review:review_detail" review.pk %}>
+            <p class="summary-movie_title">{{review.title}}</p>
+            <p class="summary-movie_year">
+                <span class="summary-about">개봉년도</span>
+                <span class="summary-data">{{review.year}}</span>
+            </p>
+            <p class="summary-movie_category">
+                <span class="summary-about">장르</span>
+                <span class="summary-data">{{review.get_category_display}}</span>             
+            </p>
+            <p class="summary-movie_rating">
+                <span class="summary-about">별점</span>
+                <span class="summary-data">{{review.rating}}</span>
+            </p>
+        </a>
+        {% endfor %}
+        
+    </main>
+</body>
+</html>

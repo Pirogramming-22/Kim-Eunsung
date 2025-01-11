@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나만의 영화 기록 사이트 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'create.css' %}">
+</head>
+<body>
+    <header>
+        <a href={% url "review:review_list" %}>my <span class="highlight">Movie</span> reviews</a>
+        <a href={% url "review:review_create" %}>add a New review</a>
+    </header>
+    <div class="divider"></div>
+    <main>
+        <h2> <span class="highlight">Movie</span> review 🍿</h2>
+        <div class="divider"></div>
+        <form method="POST" action="{% url "review:review_create" %}" method="post">
+            {% csrf_token %}
+            
+            <div class='form-input-element'>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="year">개봉년도:</label>
+            <input type="number" id="year" name="year" min="1900" max="2100" required>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="category">장르:</label>
+            <select id="category" name="category" required>
+                <option value="" disabled selected>--------</option>
+                <option value="코미디">코미디</option>
+                <option value="SF">SF</option>
+                <option value="액션">액션</option>
+                <option value="공포">공포</option>
+                <option value="다큐멘터리">다큐멘터리</option>
+                <option value="로맨스">로맨스</option>
+            </select>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="rating">별점:</label>
+            <input type="number" id="rating" name="rating" step="0.5" min="0.0" max="5.0" required>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="runningTime">러닝타임 (분):</label>
+            <input type="number" id="runningTime" name="runningTime" required>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="review">리뷰:</label>
+            <br>
+            <textarea id="review" name="review" rows="10" required></textarea>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="director">감독:</label>
+            <input type="text" id="director" name="director" required>
+            <br>
+            </div>
+    
+            <div class='form-input-element'>
+            <label for="actor">배우:</label>
+            <input type="text" id="actor" name="actor" required>
+            <br>
+            </div>
+            
+            <div class='form-input-element'>
+            <button type="submit">Save</button>
+            </div>
+        </form>
+        
+    </main>
+</body>
+</html>

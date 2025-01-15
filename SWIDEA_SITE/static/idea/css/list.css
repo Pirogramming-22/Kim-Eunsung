@@ -1,0 +1,77 @@
+.list--main-header-formarea {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+
+
+.list--main-content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    width: 100%;
+    padding-inline: 30px;
+}
+
+.list--main-idea-item {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #cadeeb;
+    padding: 10px;
+    color: black;
+}
+.list--main-idea-item > button {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    opacity: 0.1;
+    font-size: 1.6rem;
+}
+.list--main-idea-item > button.zzim {
+    opacity: 1;
+    color: gold;
+}
+.list--main-idea-item > img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+.list--main-idea-item > a {
+    width: 95%;
+    margin-block: 3px;
+    text-decoration: none;
+    color: inherit;
+}
+.list--main-idea-item > a > h2 {
+    text-align: left;
+    font-size: 1.2rem;
+}
+
+.list--main-idea-item > hr {
+    width: 95%;
+    height: 4px;
+    background-color: #a2abeb;
+    border: none;
+    margin-bottom: 15px;
+}
+.list--main-idea-item > p {
+    width: 95%;
+    text-align: left;
+    margin-block: 3px;
+}
+.list--main-idea-item button {
+    cursor: pointer;
+}
+
+.list--main-footer a {
+    text-decoration: none;
+    color: inherit;
+}
+.list--main-footer a.current_page {
+    text-decoration: none;
+    color: inherit;
+}

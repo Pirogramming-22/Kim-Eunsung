@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {%block head%}
+    <link rel="stylesheet" href="{%static 'devtool/css/detail.css'%}">
+    {%endblock%}
+</head>
+
+<body>
+    <main id="main">
+        {%block content%}
+        <div class="main-header">
+            <h1>DevTool Detail</h1>
+            <p>개발툴 세부내용 페이지 입니다. 자신이 다룰 수 있는 개발툴에 대한 상세내용을 확인해 보아요.</p>
+        </div>
+        <div class="detail--main-content">
+            <div class="detail--title">
+                <h2>{{devtool.name}}</h2>
+            </div>
+            <div class="detail--info">
+                <p>{{devtool.kind}}</p>
+                <p>{{devtool.content}}</p>
+            </div>
+            <div class="detail--idea_list">
+                <p>> 만들 수 있는 SW 목록</p>
+                {% for idea in rel_ideas %}
+                <p><a href="{% url "idea:idea_detail" idea.id %}">{{idea.title}}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="detail--main-footer">
+            <form method="post" action="{% url 'devtool:devtool_delete' devtool.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">삭제</button>
+            </form>
+            <button type="button" class="btn-list" onclick="window.location.href='{% url 'devtool:devtool_list' %}'">
+                목록
+            </button>
+            <button type="button" class="btn-update" onclick="window.location.href='{% url 'devtool:devtool_update' devtool.id %}'">
+                수정
+            </button>
+        </div>
+
+        {%endblock%}
+    </main>
+</body>
+
+</html>

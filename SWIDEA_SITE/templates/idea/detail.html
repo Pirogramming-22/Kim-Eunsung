@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%static 'idea/css/style.css'%}">
+    {%block head%}
+    <link rel="stylesheet" href="{%static 'idea/css/detail.css'%}">
+    {%endblock%}
+</head>
+
+<body>
+    <main id="main">
+        {%block content%}
+        <div class="main-header">
+            <h1>Idea Detail</h1>
+            <p>아이디어 세부내용 페이지 입니다. 당신이 구현하려 한 아이디어들을 자세히 살펴보세요.</p>
+        </div>
+        <div class="detail--main-content">
+            <img src="{{idea.image.url}}" alt="아이디어 썸네일"/>
+            <div class="detail--info">
+                <div class="detail--info-title">
+                    <h2>{{idea.title}}</h2>
+                    {% if idea.zzim %}
+                    <button class="zzim-btn zzim" onclick="ZzimToggle(this, {{idea.id}})">★</button>
+                    {% else %}
+                    <button class="zzim-btn" onclick="ZzimToggle(this, {{idea.id}})">★</button>
+                    {% endif %}
+                    <meta name="csrf-token" content="{{ csrf_token }}">
+                </div>
+                <div class="detail--info-interest">
+                    <p>1) 아이디어 관심도</p>
+                    <p>{{idea.interest}}</p>
+                </div>
+                <div class="detail--info-devtool">
+                    <p>2) 예상 개발 툴</p>
+                    <p><a href="{% url "devtool:devtool_detail" idea.devtool.id %}">{{idea.devtool}}</a></p>
+                </div>
+                <div class="detail--info-content">
+                    <p>3) 아이디어 설명</p>
+                    <p>{{idea.content}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="detail--main-footer">
+            <form method="post" action="{% url 'idea:idea_delete' idea.id %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete">삭제</button>
+            </form>
+            <button type="button" class="btn-list" onclick="window.location.href='{% url 'idea:idea_list' %}'">
+                목록
+            </button>
+            <button type="button" class="btn-update" onclick="window.location.href='{% url 'idea:idea_update' idea.id %}'">
+                수정
+            </button>
+        </div>
+
+        {%endblock%}
+    </main>
+</body>
+
+</html>

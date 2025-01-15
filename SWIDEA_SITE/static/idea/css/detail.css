@@ -1,0 +1,69 @@
+.detail--main-content {
+    flex: 1;
+    border: 1px solid white;
+    display: flex;
+    width: 90%;
+    gap: 50px;
+    padding: 20px;
+    align-items: center;
+}
+.detail--main-content > img {
+    flex: 1;
+    flex-grow: 0;
+    max-height: 300px;
+    width: auto;
+}
+.detail--info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: left;
+    height: 100%;
+}
+
+.detail--info-title {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+.detail--info-title > button {
+    cursor: pointer;
+    right: 20px;
+    opacity: 0.1;
+    font-size: 1.6rem;
+    line-height: 34px;
+}
+.detail--info-title > button.zzim {
+    opacity: 1;
+    color: gold;
+}
+.detail--info-devtool a {
+    font-weight: bold;
+    text-decoration: none;
+    color: #f5e8af;
+}
+
+.detail--main-footer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+.detail--main-footer button {
+    cursor: pointer;
+    height: 30px;
+    width: 60px;
+    border-radius: 5px;
+}
+.detail--main-footer button.btn-delete {
+    background-color: #d06964;
+    color: white;
+}
+.detail--main-footer button.btn-list {
+    background-color: white;
+}
+.detail--main-footer button.btn-update {
+    background-color: #7a9ae4;
+    color: white;
+}

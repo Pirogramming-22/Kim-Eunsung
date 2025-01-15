@@ -1,0 +1,55 @@
+.detail--main-content {
+    flex: 1;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 50px;
+    padding: 20px;
+    align-items: start;
+}
+.detail--title {
+    font-size: 24px;
+    color: #f5e8af;
+}
+.detail--info {
+    text-align: left;
+    border-left: 3px solid #f5e8af;
+    padding: 10px;
+}
+.detail--info p {
+    margin-top: 6px;
+}
+
+.detail--idea_list {
+    text-align: left;
+}
+.detail--idea_list a {
+    font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+}
+
+.detail--main-footer {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 100px;
+}
+.detail--main-footer button {
+    cursor: pointer;
+    height: 30px;
+    width: 60px;
+    border-radius: 5px;
+}
+.detail--main-footer button.btn-delete {
+    background-color: #d06964;
+    color: white;
+}
+.detail--main-footer button.btn-list {
+    background-color: white;
+}
+.detail--main-footer button.btn-update {
+    background-color: #7a9ae4;
+    color: white;
+}

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%static 'idea/css/style.css'%}">
+    {%block head%}
+    <link rel="stylesheet" href="{%static 'idea/css/list.css'%}">
+    {%endblock%}
+</head>
+
+<body>
+    <main id="main">
+        {%block content%}
+        <div class="main-header">
+            <h1>Idea List</h1>
+            <p>나의 아이디어를 잊지 말고 기록해보세요</p>
+            <div class="list--main-header-formarea">
+                <form id="list-sort" method="get" action="">
+                    <select name="sort" onchange="this.form.submit();">
+                        <option value="" disabled selected>--정렬기준--</option>
+                        <option value="-zzim" {% if request.GET.sort == "-zzim" %}selected{% endif %}>찜하기순</option>
+                        <option value="id" {% if request.GET.sort == "id" %}selected{% endif %}>등록순</option>
+                        <option value="-id" {% if request.GET.sort == "-id" %}selected{% endif %}>최신순</option>
+                        <option value="title" {% if request.GET.sort == "title" %}selected{% endif %}>이름순</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="list--main-content">
+            {% for idea in ideas %}
+            <div class="list--main-idea-item">
+                {% if idea.zzim %}
+                <button class="zzim-btn zzim" onclick="ZzimToggle(this, {{idea.id}})">★</button>
+                {% else %}
+                <button class="zzim-btn" onclick="ZzimToggle(this, {{idea.id}})">★</button>
+                {% endif %}
+                <img src="{{idea.image.url}}" alt="아이디어 썸네일"/>
+                <a href="{% url "idea:idea_detail" idea.id %}"><h2>{{idea.title}}</h2></a>
+                <hr/>
+                <p>예상 개발 툴 : {{idea.devtool}}</p>
+                <p>아이디어 관심도 : <button onclick="interestUp({{idea.id}})">+</button> <span class="list--idea-interest{{idea.id}}">{{idea.interest}}</span> <button onclick="interestDown({{idea.id}})">-</button></p>
+                <meta name="csrf-token" content="{{ csrf_token }}">
+            </div>
+            {% endfor %}
+        </div>
+        <div class="list--main-footer">
+            {% if ideas.has_previous %}
+                <a href="?page={{ ideas.previous_page_number }}&sort={{ sort_value }}"><</a>
+            {% else %}
+                <a><</a>
+            {% endif %}
+        
+            {% for p in ideas.paginator.page_range %}
+                <a href="?page={{ p }}&sort={{ sort_value }}" class="mx-1 {% if ideas.number == p %}current_page{% endif %}">{{ p }}</a>
+            {% endfor %}
+        
+            {% if ideas.has_next %}
+                <a href="?page={{ ideas.next_page_number }}&sort={{ sort_value }}">></a>
+            {% else %}
+                <a>></a>
+            {% endif %}
+        </div>
+
+        {%endblock%}
+    </main>
+</body>
+
+</html>

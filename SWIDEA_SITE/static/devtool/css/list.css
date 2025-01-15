@@ -1,0 +1,42 @@
+.list--main-content {
+    flex: 1;
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    width: 90%;
+    height: 100%;
+    padding-inline: 30px;
+}
+.list--main-devtool-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr 5fr;
+    text-align-last: left;
+    align-items: center;
+    background-color: transparent;
+    padding: 10px 30px;
+    color: black;
+    border-top: 1px solid white;
+}
+.list--main-devtool-item a {
+    text-decoration: none;
+    color: inherit;
+}
+.list--main-devtool-item h2 {
+    font-size: 20px;
+}
+.list--main-devtool-item p {
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.list--main-devtool-item p:nth-child(2) {
+    color: white;
+}
+
+.list--main-footer a {
+    text-decoration: none;
+    color: inherit;
+}
+.list--main-footer a.current_page {
+    text-decoration: underline;
+    color: inherit;
+}

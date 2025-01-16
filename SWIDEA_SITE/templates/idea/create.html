@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%static 'idea/css/base.css'%}">
+    {%block head%}
+    <link rel="stylesheet" href="{%static 'idea/css/create.css'%}">
+    {%endblock%}
+</head>
+
+<body>
+    <main id="main">
+        {%block content%}
+        <div class="main-header">
+            <h1>Idea Register</h1>
+            <p>아이디어 등록 페이지 입니다. 당신의 아이디어를 잊지 말고 기록하세요!</p>
+        </div>
+        <div class="create--main-content">
+            <form
+            action="{% url "idea:idea_create" %}"
+            method="post"
+            enctype="multipart/form-data"
+            >
+            {%csrf_token%} {{form.as_div}}
+            <div>
+                <button class="btn-submit">SUBMIT</button>
+            </div>
+          </form>
+        </div>
+        <div class="list--main-footer">
+
+        </div>
+
+        {%endblock%}
+    </main>
+</body>
+
+</html>

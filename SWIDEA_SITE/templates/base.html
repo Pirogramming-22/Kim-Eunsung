@@ -1,0 +1,33 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%static 'idea/css/base.css'%}">  
+    {%block head%}
+    
+    {%endblock%}
+</head>
+<body>
+    <header id="nav-bar">
+        <div class="nav-bar--left">
+            <a href="/">My <span class="title-deco">SW Idea</span> Manage</a>
+        </div>
+        <div class="nav-bar--right">
+            <a href="/create">아이디어 등록</a>
+            <a href="/list">아이디어 관리</a>
+            <a href="/devtool/create">개발툴 등록</a>
+            <a href="/devtool/list">개발툴 관리</a>
+        </div>
+    </header>
+    <main id="main">
+        {%block content%}
+    
+        {%endblock%}
+    </main>
+    
+    <script src="{% static 'idea/js/list.js' %}"></script>
+</body>
+</html>

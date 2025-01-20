@@ -8,6 +8,8 @@ urlpatterns = [
     path('', views.main, name="main"),
     path('create', views.create, name="create"),
     path('detail/<int:pk>', views.detail, name="detail"),
+    path('search/', views.search, name="search"),
+    path('search_ajax/', views.search_ajax, name="search_ajax"),
     
     # 좋아요 관련
     path('detail/<int:pk>/like', views.toggle_like, name="toggle_like"),

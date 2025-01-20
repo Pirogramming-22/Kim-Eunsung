@@ -42,7 +42,9 @@
                     <div class="comment-item comment-item-{{comment.id}}">
                         <p><span class="writer">{{comment.writer}}</span> <span class="created_at">{{comment.created_at}}</span></p>
                         <p>{{comment.content}}</p>
+                        {% if request.user.id == comment.writer.id %}
                         <button onclick="commentDelete({{post.id}}, {{comment.id}})" class="comment-delete">삭제</button>
+                        {% endif %}
                     </div>
                 {% endfor %}
             </div>

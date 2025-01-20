@@ -19,7 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("post.urls"))
+    path('', include("post.urls")),
+    path('', include("user.urls")),
 ]
 
 # 이미지를 업로드하자

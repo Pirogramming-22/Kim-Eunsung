@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,18 +16,107 @@
 <body>
     <header>
         {% block header %}
-        <h2>피로스타그램</h2>
+        <h2>피드</h2>
         {% endblock header %}
     </header>
     <main>
         {% block main %}
+        <form method="get" action="{% url 'post:main' %}">
+            <label for="order_by">정렬 기준:</label>
+            <select id="order_by" name="order_by" onchange="this.form.submit()">
+                <option value="created_at" {% if order_by == 'created_at' %}selected{% endif %}>최신순</option>
+                <option value="likes" {% if order_by == 'likes' %}selected{% endif %}>좋아요 많은 순</option>
+                <option value="comments" {% if order_by == 'comments' %}selected{% endif %}>댓글 많은 순</option>
+            </select>
+        </form>
         {% for post in posts %}
-            <a href="{% url "post:detail" post.id %}"><img src="{{post.image.url}}" alt="이미지 썸네일"/></a>
+        <div class="post-item">
+            <p><span class="writer">{{post.writer}}</span></p>
+            <img src="{{post.image.url}}" alt="이미지"/>
+            <div class="post-info">
+                <div class="post-info-like post-info-like-{{post.id}}">
+                    <button onclick="onLikeClick({{post.id}})" {% if post.id in post_likes and post_likes|dict_get:post.id %}class="liking"{% endif %}>좋아요</button>
+                    <p class="post-info-like_count">{{post.liker.count}}</p></div>
+                <div class="post-info-comment">
+                    <button onclick="document.location.href='{% url "post:detail" post.id %}'">댓글</button>
+                    <p class="post-info-comment_count">{{post.comment_set.count}}</p></div>
+            </div>
+            <p><span class="writer">{{post.writer}}</span> {{post.content}}</p>
+            <p><span class="created_at">{{post.created_at}}</span></p>
+        </div>
         {% endfor %}
         {% endblock main %}
     </main>
     {% block script %}
-    
+    <script>
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+        
+            // 날짜와 시간 포맷을 지정
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+            };
+        
+            // Intl.DateTimeFormat을 사용하여 날짜를 원하는 형식으로 포맷
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+        
+            // 날짜 포맷에서 월을 "Jan." 형태로 수정
+            const parts = formattedDate.split(' ');
+            const month = parts[0] + '.';  // 'Jan.' 형태로 변환
+            const day = parts[1];
+            const year = parts[2];
+            const time = parts[3] + ' ' + parts[4]; // 시간 + 오전/오후
+        
+            return `${month} ${day} ${year} ${time}`;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const onLikeClick = async (post_id) => {
+            const url = `detail/${post_id}/like`;
+            const res = await fetch(url, {
+                method : "POST",
+                headers : {
+                    'X-CSRFToken': csrftoken,
+                    "Content-Type": "application/json"
+                }
+            });
+            const {liked: liked, like_count: like_count} = await res.json();
+            updateLikeHTML(liked, like_count, post_id)
+        }
+
+        const updateLikeHTML = (liked, like_count, post_id) => {
+            const likeBtn = document.querySelector(`.post-info-like-${post_id} > button`);
+            const likeCountP = document.querySelector(`.post-info-like-${post_id} > .post-info-like_count`);
+            
+            if (liked) {
+                likeBtn.classList.add('liking');
+            } else {
+                likeBtn.classList.remove('liking');
+            }
+            likeCountP.innerHTML = like_count;
+        }
+
+    </script>
     {% endblock script %}
 </body>
 </html>

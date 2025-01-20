@@ -1,0 +1,21 @@
+.main-header {
+    display: flex;
+    gap: 50px;
+    margin: 30px;
+}
+.main-header p {
+    margin: 0;
+}
+
+.main-post-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: start;
+}
+
+img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}

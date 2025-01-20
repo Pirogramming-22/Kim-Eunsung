@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피로스타그램 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/user_main.css' %}">
+    {% endblock stylesheet %}
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h2>{{user.id}}</h2>
+        {% endblock header %}
+    </header>
+    <main>
+        {% block main %}
+        <div class="main-header">
+            <p>{{user}}</p>
+            <p>게시물: {{posts_count}}</p>
+            <form method="post" action="{% url "user:logout" %}">
+                {% csrf_token %}
+                <button type="submit">로그아웃</button>
+            </form>
+        </div>
+        <div class="main-post-list">
+        {% for post in posts %}
+            <a href="{% url "post:detail" post.id %}"><img src="{{post.image.url}}" alt="이미지 썸네일"/></a>
+        {% endfor %}
+        </div>
+        {% endblock main %}
+    </main>
+    {% block script %}
+    
+    {% endblock script %}
+</body>
+</html>

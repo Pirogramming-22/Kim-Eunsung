@@ -2,15 +2,31 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .models import Post, Comment, Like
 from .forms import PostForm, CommentForm
+from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 # Create your views here.
 def main(request):
-    posts = Post.objects.all()
+    order_by = request.GET.get('order_by', 'created_at')
+    
+    # 정렬 로직
+    if order_by == 'likes':
+        posts = Post.objects.annotate(like_count=Count('liker')).order_by('-like_count')  # 좋아요 많은 순
+    elif order_by == 'comments':
+        posts = Post.objects.annotate(comment_count=Count('comment')).order_by('-comment_count')  # 댓글 많은 순
+    else:
+        posts = Post.objects.all().order_by('-created_at')  # 최신순
+        
+    post_likes = {post.id: Like.objects.filter(user=request.user, post=post).exists() for post in posts}
+    
     context = {
         "posts": posts,
+        "post_likes": post_likes,
+        'order_by': order_by,
     }
     return render(request, "post/list.html", context)
 
+@login_required
 def create(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
@@ -49,6 +65,7 @@ def detail(request, pk):
 
 
 # AJAX 요청으로 동작
+@login_required
 def toggle_like(request, pk):
     post = Post.objects.get(id=pk)
     
@@ -75,6 +92,7 @@ def toggle_like(request, pk):
     
 
 # AJAX 요청으로 동작
+@login_required
 def comment_create(request, post_pk):
     if request.method == "POST":
         post = Post.objects.get(id=post_pk)
@@ -100,6 +118,7 @@ def comment_create(request, post_pk):
     return redirect("post:detail", post_pk)
 
 # AJAX 요청으로 동작
+@login_required
 def comment_delete(request, post_pk, comment_pk):
     if request.method == "POST":
         post = Post.objects.get(id=post_pk)
@@ -112,4 +131,20 @@ def comment_delete(request, post_pk, comment_pk):
         })
         
     return redirect("post:detail", post_pk)
+
+
+def search(request):
+    posts = Post.objects.all()
+    context = {
+        "posts": posts,
+    }
+    return render(request, "post/search.html", context)
     
+def search_ajax(request):
+    query = request.GET.get("query", "")  # 검색어를 GET 파라미터로 받음
+    if query[0] == '@':
+        # 유저검색
+        results = Post.objects.filter(writer__id__icontains=query[1:]).values("id", "image")
+    else:
+        results = Post.objects.filter(content__icontains=query).values("id", "image")
+    return JsonResponse({"result": list(results)})

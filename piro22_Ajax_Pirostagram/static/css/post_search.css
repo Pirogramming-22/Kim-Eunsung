@@ -1,0 +1,20 @@
+input {
+    width: 100%;
+    margin-block: 5px;
+    height: 28px;
+    border-radius: 14px;
+    padding-inline: 5px;
+}
+
+.list-all, #results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    align-content: start;
+}
+
+img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}

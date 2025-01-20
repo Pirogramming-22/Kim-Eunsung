@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피로스타그램 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/post_create.css' %}">
+    {% endblock stylesheet %}
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h2>새 게시물</h2>
+        {% endblock header %}
+    </header>
+    <main>
+        {% block main %}
+        <form
+            action="{% url "post:create" %}"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            {%csrf_token%} {{form.as_div}}
+            <div>
+                <button class="btn-submit">게시</button>
+            </div>
+        </form>
+        {% endblock main %}
+    </main>
+    {% block script %}
+    
+    {% endblock script %}
+</body>
+</html>

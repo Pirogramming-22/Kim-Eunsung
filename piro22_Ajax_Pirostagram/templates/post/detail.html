@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피로스타그램 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+    {% endblock stylesheet %}
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h2>게시물 정보</h2>
+        {% endblock header %}
+    </header>
+    <main>
+        {% block main %}
+        <img src="{{post.image.url}}" alt="이미지"/>
+        <div class="post-info">
+            <div class="post-info-like">
+                <button onclick="onLikeClick({{post.id}})" {% if liking %}class="liking"{% endif %}>좋아요</button>
+                <p class="post-info-like_count">{{likeCount}}</p></div>
+            <div class="post-info-comment">
+                <button onclick="commentFoldToggle()">댓글</button>
+                <p class="post-info-comment_count">{{commentCount}}</p></div>
+        </div>
+        <p><span class="writer">{{post.writer}}</span> {{post.content}}</p>
+        <p><span class="created_at">{{post.created_at}}</span></p>
+        <div class="comments">
+            <h3>댓글</h3>
+            <div class="comment-create-form">
+                <textarea id="commentInputContent" rows="3" placeholder="여기에 입력하세요..."></textarea>
+                <button onclick="commentCreate({{post.id}})" class="btn-submit">댓글 추가</button>
+            </div>
+            <div class="comment-item-parent">
+                {% for comment in comments %}
+                    <div class="comment-item comment-item-{{comment.id}}">
+                        <p><span class="writer">{{comment.writer}}</span> <span class="created_at">{{comment.created_at}}</span></p>
+                        <p>{{comment.content}}</p>
+                        <button onclick="commentDelete({{post.id}}, {{comment.id}})" class="comment-delete">삭제</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endblock main %}
+    </main>
+    {% block script %}
+    <script>
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+        
+            // 날짜와 시간 포맷을 지정
+            const options = {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: true,
+            };
+        
+            // Intl.DateTimeFormat을 사용하여 날짜를 원하는 형식으로 포맷
+            const formattedDate = new Intl.DateTimeFormat('en-US', options).format(date);
+        
+            // 날짜 포맷에서 월을 "Jan." 형태로 수정
+            const parts = formattedDate.split(' ');
+            const month = parts[0] + '.';  // 'Jan.' 형태로 변환
+            const day = parts[1];
+            const year = parts[2];
+            const time = parts[3] + ' ' + parts[4]; // 시간 + 오전/오후
+        
+            return `${month} ${day} ${year} ${time}`;
+        }
+
+        const csrftoken = getCookie('csrftoken');
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        const onLikeClick = async (post_id) => {
+            const url = `${post_id}/like`;
+            const res = await fetch(url, {
+                method : "POST",
+                headers : {
+                    'X-CSRFToken': csrftoken,
+                    "Content-Type": "application/json"
+                }
+            });
+            const {liked: liked, like_count: like_count} = await res.json();
+            updateLikeHTML(liked, like_count)
+        }
+
+        const updateLikeHTML = (liked, like_count) => {
+            const likeBtn = document.querySelector('.post-info-like > button');
+            const likeCountP = document.querySelector('.post-info-like_count');
+            
+            if (liked) {
+                likeBtn.classList.add('liking');
+            } else {
+                likeBtn.classList.remove('liking');
+            }
+            likeCountP.innerHTML = like_count;
+        }
+
+        const commentCreate = async (post_id) => {
+            const contentTextArea = document.getElementById('commentInputContent');
+            const contentText = contentTextArea.value;
+            contentTextArea.value = '';
+            const url = `/detail/${post_id}/comment/create`;
+            const res = await fetch(url, {
+                method : "POST",
+                headers : {
+                    'X-CSRFToken': csrftoken,
+                    "Content-Type": "application/json",
+                },
+                body : JSON.stringify({content : contentText})
+            });
+            const {writer_id: writer_id, content: content, created_at: created_at, comment_count: comment_count, comment_id: comment_id} = await res.json();
+            updateCommentHTML(writer_id, created_at, content, comment_count, comment_id, post_id)
+        }
+        const commentDelete = async (post_id, comment_id) => {
+            const url = `/detail/${post_id}/comment/${comment_id}/delete`;
+            const res = await fetch(url, {
+                method : "POST",
+                headers : {
+                    'X-CSRFToken': csrftoken,
+                    "Content-Type": "application/json",
+                }
+            });
+            const {comment_count: comment_count} = await res.json();
+            updateCommentHTMLAfterDelete(comment_count, comment_id)
+        }
+        const updateCommentHTML = (writer_id, created_at, content, comment_count, comment_id, post_id) => {
+            const commentCountP = document.querySelector('.post-info-comment_count');
+            commentCountP.innerHTML = comment_count;
+
+            const commentItemParent = document.querySelector('.comment-item-parent');
+
+            const newItem = document.createElement('div');
+            newItem.className = `comment-item comment-item-${comment_id}`;
+            newItem.innerHTML = `
+            <p><span class="writer">${writer_id}</span> <span class="created_at">${formatDate(created_at)}</span></p>
+            <p>${content}</p>
+            <button onclick="commentDelete(${post_id}, ${comment_id})" class="comment-delete">삭제</button>
+            `
+
+            commentItemParent.prepend(newItem)
+        }
+        const updateCommentHTMLAfterDelete = (comment_count, comment_id) => {
+            const commentCountP = document.querySelector('.post-info-comment_count');
+            commentCountP.innerHTML = comment_count;
+
+            const deleteCommentItem = document.querySelector(`.comment-item-${comment_id}`)
+            deleteCommentItem.remove()
+        }
+
+        const commentFoldToggle = () => {
+            const commentsDOM = document.querySelector('.comments');
+            if (commentsDOM.checkVisibility()) {
+                commentsDOM.style.display='none';
+            } else {
+                commentsDOM.style.display='flex';
+            }
+        }
+        
+
+    </script>
+    {% endblock script %}
+</body>
+</html>

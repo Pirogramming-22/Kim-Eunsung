@@ -1,0 +1,87 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+main > form {
+    display: flex;
+    justify-content: end;
+    gap: 5px;
+}
+
+img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.post-info {
+    display: flex;
+    gap: 30px;
+}
+.post-info > div {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+}
+
+button.liking {
+    color: red;
+}
+
+p {
+    text-align: left;
+    margin: 0;
+}
+
+span.writer {
+    font-weight: bold;
+}
+
+span.created_at {
+    color: gray;
+    font-weight: lighter;
+}
+
+
+.comments {
+    display: none;
+    flex-direction: column;
+    margin: 10px;
+    gap: 10px;
+}
+h3 {
+    margin: 0;
+}
+
+.comment-item {
+    position: relative;
+    padding-block: 10px;
+    border-bottom: 1px solid gray;
+}
+.comment-item > button {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+}
+
+.comment-create-form {
+    width: 100%;
+    display: flex;
+}
+.comment-create-form > textarea {
+    flex: 1;
+}
+.comment-create-form > button {
+    border: 1px solid black;
+}

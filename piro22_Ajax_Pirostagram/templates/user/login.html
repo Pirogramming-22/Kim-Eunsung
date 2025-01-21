@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피로스타그램 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/user_login.css' %}">
+    {% endblock stylesheet %}
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h2>로그인</h2>
+        {% endblock header %}
+    </header>
+    <main>
+        {% block main %}
+        <form
+            action="{% url "user:login" %}"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            {%csrf_token%} {{form.as_div}}
+            <div>
+                <button class="btn-submit">로그인</button>
+            </div>
+
+            <a href="{% url "user:register" %}">회원이 아니면 회원가입하기</a>
+        </form>
+        {% endblock main %}
+    </main>
+    {% block script %}
+    
+    {% endblock script %}
+</body>
+</html>

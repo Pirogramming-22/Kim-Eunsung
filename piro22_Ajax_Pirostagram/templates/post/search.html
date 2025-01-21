@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피로스타그램 - 김은성</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/post_search.css' %}">
+    {% endblock stylesheet %}
+</head>
+<body>
+    <header>
+        {% block header %}
+        <h2>검색</h2>
+        {% endblock header %}
+    </header>
+    <main>
+        {% block main %}
+        <input type="text" id="search-input" placeholder="검색어를 입력하세요">
+        <div class="list-all">
+            {% for post in posts %}
+            <a href="{% url "post:detail" post.id %}"><img src="{{post.image.url}}" alt="이미지 썸네일"/></a>
+            {% endfor %}
+        </div>
+        <div id="results"></div>
+        {% endblock main %}
+    </main>
+    {% block script %}
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("search-input");
+        const resultsContainer = document.getElementById("results");
+        const allList = document.querySelector(".list-all");
+
+        searchInput.addEventListener("input", function () {
+            const query = searchInput.value.trim();
+            if (query === "") {
+                resultsContainer.innerHTML = "";  // 검색어 없으면 결과 초기화
+                allList.style.display = 'grid';
+                return;
+            }
+
+            fetch(`/search_ajax/?query=${encodeURIComponent(query)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    resultsContainer.innerHTML = "";  // 기존 결과 초기화
+                    allList.style.display = 'none';
+                    if (data.result.length > 0) {
+                        data.result.forEach(post => {
+                            const postElement = document.createElement("div");
+                            postElement.innerHTML = `
+                                <a href="/detail/${post.id}"><img src="/media/${post.image}" alt="이미지 썸네일"/></a>
+                            `;
+                            resultsContainer.appendChild(postElement);
+                        });
+                    } else {
+                        resultsContainer.innerHTML = "<p>검색 결과가 없습니다.</p>";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching posts:", error);
+                });
+        });
+    });
+    </script>
+    {% endblock script %}
+</body>
+</html>
